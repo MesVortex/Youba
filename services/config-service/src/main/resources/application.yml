@@ -8,12 +8,7 @@ spring:
     config:
       server:
         git:
-          uri: git@github.com:MesVortex/youba_config.git
+          uri: https://github.com/MesVortex/youba_config.git
           default-label: main
           search-paths:
             - config-files
-
-eureka:
-  client:
-    service-url:
-      defaultZone: http://localhost:8761/eureka/
