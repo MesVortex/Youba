@@ -16,7 +16,7 @@ public class Customer {
     private Long id;
 
     @Column(nullable = false)
-    private String nom;
+    private String name;
 
     @Column(nullable = false, unique = true)
     private String email;

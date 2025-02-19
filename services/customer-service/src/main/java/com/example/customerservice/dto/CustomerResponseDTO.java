@@ -9,6 +9,6 @@ import lombok.*;
 @Builder
 public class CustomerResponseDTO {
     private Long id;
-    private String nom;
+    private String name;
     private String email;
 }
