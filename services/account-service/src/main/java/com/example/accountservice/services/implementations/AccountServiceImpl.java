@@ -33,6 +33,12 @@ public class AccountServiceImpl implements AccountService {
             throw new RuntimeException("Customer not found with ID: " + requestDTO.getCustomerId());
         }
 
+        // Check if the customer already has an account of the requested type
+        boolean accountExists = accountRepository.existsByCustomerIdAndType(requestDTO.getCustomerId(), requestDTO.getType());
+        if (accountExists) {
+            throw new RuntimeException("Customer already has a " + requestDTO.getType() + " account.");
+        }
+
         Account account = accountMapper.requestDTOToAccount(requestDTO);
         Account savedAccount = accountRepository.save(account);
         return accountMapper.accountToResponseDTO(savedAccount);
