@@ -3,7 +3,6 @@ package com.example.customerservice.controller;
 import com.example.customerservice.dto.CustomerRequestDTO;
 import com.example.customerservice.dto.CustomerResponseDTO;
 import com.example.customerservice.service.interfaces.CustomerService;
-import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
