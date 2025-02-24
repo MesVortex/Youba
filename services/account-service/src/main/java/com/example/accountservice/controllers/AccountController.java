@@ -2,6 +2,7 @@ package com.example.accountservice.controllers;
 
 import com.example.accountservice.dto.AccountRequestDTO;
 import com.example.accountservice.dto.AccountResponseDTO;
+import com.example.accountservice.dto.AccountWithClientDTO;
 import com.example.accountservice.services.interfaces.AccountService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -31,6 +32,12 @@ public class AccountController {
     @GetMapping("/customer/{customerId}")
     public ResponseEntity<List<AccountResponseDTO>> getAccountsByCustomerId(@PathVariable Long customerId) {
         return ResponseEntity.ok(accountService.getAccountsByCustomerId(customerId));
+    }
+
+    @GetMapping("/with-client")
+    public ResponseEntity<List<AccountWithClientDTO>> getAllAccountsWithClient() {
+        List<AccountWithClientDTO> accounts = accountService.getAllAccountsWithClient();
+        return ResponseEntity.ok(accounts);
     }
 }
 
