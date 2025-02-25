@@ -1,16 +1,24 @@
 import { useState } from "react";
 import { addCustomer } from "../services/customerService";
 import Header from "../components/Header";
-import {Button, Container, Paper, TextField, Typography} from "@mui/material";
+import {Alert, Button, Container, Paper, TextField, Typography} from "@mui/material";
 
 function CustomersPage() {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
+    const [error, setError] = useState<string | null>(null);
+    const [success, setSuccess] = useState<string | null>(null);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        await addCustomer({ name, email });
-        alert("Customer added successfully!");
+        try {
+            await addCustomer({ name, email });
+            setSuccess("Customer added successfully");
+            setError(null); // Clear any previous errors
+        } catch (err: any) {
+            setSuccess(null);
+            setError(err.response?.data?.detail || "An error occurred");
+        }
     };
 
     return (
@@ -39,6 +47,8 @@ function CustomersPage() {
                             required
                             margin="normal"
                         />
+                        {error && <Alert severity="error">{error}</Alert>}
+                        {success && <Alert severity="success">{success}</Alert>}
                         <Button type="submit" variant="contained" color="primary">
                             Add Customer
                         </Button>
