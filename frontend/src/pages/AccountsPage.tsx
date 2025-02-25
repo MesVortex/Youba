@@ -1,5 +1,17 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { createAccount } from "../services/accountService";
+import Header from "../components/Header";
+import {
+    Button,
+    Container,
+    FormControl,
+    InputLabel,
+    MenuItem,
+    Paper,
+    Select,
+    TextField,
+    Typography
+} from "@mui/material";
 
 function AccountsPage() {
     const [balance, setBalance] = useState(0);
@@ -14,16 +26,48 @@ function AccountsPage() {
 
     return (
         <div>
-            <h1>Create Account</h1>
-            <form onSubmit={handleSubmit}>
-                <input type="number" placeholder="Balance" value={balance} onChange={(e) => setBalance(Number(e.target.value))} required />
-                <select value={type} onChange={(e) => setType(e.target.value)} required>
-                    <option value="CHECKING">Checking</option>
-                    <option value="SAVINGS">Savings</option>
-                </select>
-                <input type="number" placeholder="Customer ID" value={customerId} onChange={(e) => setCustomerId(e.target.value)} required />
-                <button type="submit">Create Account</button>
-            </form>
+            <Header />
+            <Container>
+                <Typography variant="h4" gutterBottom>
+                    Create Account
+                </Typography>
+                <Paper style={{ padding: "20px" }}>
+                    <form onSubmit={handleSubmit}>
+                        <TextField
+                            label="Balance"
+                            type="number"
+                            value={balance}
+                            onChange={(e) => setBalance(Number(e.target.value))}
+                            fullWidth
+                            required
+                            margin="normal"
+                        />
+                        <FormControl fullWidth margin="normal">
+                            <InputLabel>Type</InputLabel>
+                            <Select
+                                value={type}
+                                onChange={(e) => setType(e.target.value)}
+                                required
+                            >
+                                <MenuItem value="CHECKING">Checking</MenuItem>
+                                <MenuItem value="SAVINGS">Savings</MenuItem>
+                            </Select>
+                        </FormControl>
+                        <TextField
+                            label="Customer ID"
+                            type="number"
+                            value={customerId}
+                            onChange={(e) => setCustomerId(e.target.value)}
+                            fullWidth
+                            required
+                            margin="normal"
+                        />
+                        <Button type="submit" variant="contained" color="primary">
+                            Create Account
+                        </Button>
+                    </form>
+                </Paper>
+            </Container>
         </div>
     );
 }

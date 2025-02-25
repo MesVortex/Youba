@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { addCustomer } from "../services/customerService";
+import Header from "../components/Header";
+import {Button, Container, Paper, TextField, Typography} from "@mui/material";
 
 function CustomersPage() {
     const [name, setName] = useState("");
@@ -13,12 +15,36 @@ function CustomersPage() {
 
     return (
         <div>
-            <h1>Add Customer</h1>
-            <form onSubmit={handleSubmit}>
-                <input type="text" placeholder="Name" value={name} onChange={(e) => setName(e.target.value)} required />
-                <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required />
-                <button type="submit">Add Customer</button>
-            </form>
+            <Header />
+            <Container>
+                <Typography variant="h4" gutterBottom>
+                    Add Customer
+                </Typography>
+                <Paper style={{ padding: "20px" }}>
+                    <form onSubmit={handleSubmit}>
+                        <TextField
+                            label="Name"
+                            value={name}
+                            onChange={(e) => setName(e.target.value)}
+                            fullWidth
+                            required
+                            margin="normal"
+                        />
+                        <TextField
+                            label="Email"
+                            type="email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            fullWidth
+                            required
+                            margin="normal"
+                        />
+                        <Button type="submit" variant="contained" color="primary">
+                            Add Customer
+                        </Button>
+                    </form>
+                </Paper>
+            </Container>
         </div>
     );
 }
