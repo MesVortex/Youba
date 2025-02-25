@@ -5,6 +5,9 @@ import com.example.accountservice.dto.AccountResponseDTO;
 import com.example.accountservice.dto.AccountWithClientDTO;
 import com.example.accountservice.dto.CustomerDTO;
 import com.example.accountservice.entities.Account;
+import com.example.accountservice.exceptions.AccountNotFoundException;
+import com.example.accountservice.exceptions.CustomerNotFoundException;
+import com.example.accountservice.exceptions.DuplicateAccountException;
 import com.example.accountservice.mappers.AccountMapper;
 import com.example.accountservice.repositories.AccountRepository;
 import com.example.accountservice.services.interfaces.AccountService;
@@ -40,13 +43,13 @@ public class AccountServiceImpl implements AccountService {
         // Validate customer existence
         CustomerDTO customer = customerServiceClient.getCustomerById(requestDTO.getCustomerId());
         if (customer == null) {
-            throw new RuntimeException("Customer not found with ID: " + requestDTO.getCustomerId());
+            throw new CustomerNotFoundException("Customer not found with ID: " + requestDTO.getCustomerId());
         }
 
         // Check if the customer already has an account of the requested type
         boolean accountExists = accountRepository.existsByCustomerIdAndType(requestDTO.getCustomerId(), requestDTO.getType());
         if (accountExists) {
-            throw new RuntimeException("Customer already has a " + requestDTO.getType() + " account.");
+            throw new DuplicateAccountException("Customer already has a " + requestDTO.getType() + " account.");
         }
 
         Account account = accountMapper.requestDTOToAccount(requestDTO);
@@ -54,11 +57,10 @@ public class AccountServiceImpl implements AccountService {
         return accountMapper.accountToResponseDTO(savedAccount);
     }
 
-
     @Override
     public AccountResponseDTO getAccountById(Long id) {
         Account account = accountRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Account not found"));
+                .orElseThrow(() -> new AccountNotFoundException("Account not found with id: " + id));
         return accountMapper.accountToResponseDTO(account);
     }
 

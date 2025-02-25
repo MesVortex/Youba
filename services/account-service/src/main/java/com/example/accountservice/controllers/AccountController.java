@@ -4,13 +4,16 @@ import com.example.accountservice.dto.AccountRequestDTO;
 import com.example.accountservice.dto.AccountResponseDTO;
 import com.example.accountservice.dto.AccountWithClientDTO;
 import com.example.accountservice.services.interfaces.AccountService;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/accounts")
+@Validated
 public class AccountController {
 
     private final AccountService accountService;
@@ -20,7 +23,7 @@ public class AccountController {
     }
 
     @PostMapping
-    public ResponseEntity<AccountResponseDTO> createAccount(@RequestBody AccountRequestDTO requestDTO) {
+    public ResponseEntity<AccountResponseDTO> createAccount(@Valid @RequestBody AccountRequestDTO requestDTO) {
         return ResponseEntity.ok(accountService.createAccount(requestDTO));
     }
 
