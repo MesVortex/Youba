@@ -3,6 +3,7 @@ package com.example.customerservice.controller;
 import com.example.customerservice.dto.CustomerRequestDTO;
 import com.example.customerservice.dto.CustomerResponseDTO;
 import com.example.customerservice.service.interfaces.CustomerService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +18,7 @@ public class CustomerController {
     private CustomerService customerService;
 
     @PostMapping
-    public ResponseEntity<CustomerResponseDTO> addCustomer(@RequestBody CustomerRequestDTO customerRequestDTO) {
+    public ResponseEntity<CustomerResponseDTO> addCustomer(@Valid @RequestBody CustomerRequestDTO customerRequestDTO) {
         return ResponseEntity.ok(customerService.addCustomer(customerRequestDTO));
     }
 

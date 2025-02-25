@@ -1,6 +1,5 @@
 import { AppBar, Toolbar, Typography, IconButton, Button } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import customersPage from "../pages/CustomersPage";
 
 function Header() {
     return (
