@@ -25,7 +25,7 @@ function CustomersPage() {
         <div>
             <Header />
             <Container>
-                <Typography variant="h4" gutterBottom>
+                <Typography variant="h4" gutterBottom sx={{ mt: 12 }}>
                     Add Customer
                 </Typography>
                 <Paper style={{ padding: "20px" }}>
@@ -37,6 +37,25 @@ function CustomersPage() {
                             fullWidth
                             required
                             margin="normal"
+                            sx={{
+                                "& .MuiOutlinedInput-root": {
+                                    "& fieldset": {
+                                        borderColor: "#ff3d00", // Border color
+                                    },
+                                    "&:hover fieldset": {
+                                        borderColor: "#ff3d00", // Border color on hover
+                                    },
+                                    "&.Mui-focused fieldset": {
+                                        borderColor: "#ff3d00", // Border color when focused
+                                    },
+                                },
+                                "& .MuiInputLabel-root": {
+                                    color: "#ff3d00", // Label color
+                                },
+                                "& .MuiInputLabel-root.Mui-focused": {
+                                    color: "#ff3d00", // Label color when focused
+                                },
+                            }}
                         />
                         <TextField
                             label="Email"
@@ -46,10 +65,29 @@ function CustomersPage() {
                             fullWidth
                             required
                             margin="normal"
+                            sx={{
+                                "& .MuiOutlinedInput-root": {
+                                    "& fieldset": {
+                                        borderColor: "#ff3d00", // Border color
+                                    },
+                                    "&:hover fieldset": {
+                                        borderColor: "#ff3d00", // Border color on hover
+                                    },
+                                    "&.Mui-focused fieldset": {
+                                        borderColor: "#ff3d00", // Border color when focused
+                                    },
+                                },
+                                "& .MuiInputLabel-root": {
+                                    color: "#ff3d00", // Label color
+                                },
+                                "& .MuiInputLabel-root.Mui-focused": {
+                                    color: "#ff3d00", // Label color when focused
+                                },
+                            }}
                         />
                         {error && <Alert severity="error">{error}</Alert>}
                         {success && <Alert severity="success">{success}</Alert>}
-                        <Button type="submit" variant="contained" color="primary">
+                        <Button type="submit" variant="outlined" sx={{ color: "#ff3d00", borderColor: "#ff3d00", mt: 2 }}>
                             Add Customer
                         </Button>
                     </form>
