@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { createAccount } from "../services/accountService";
 import Header from "../components/Header";
 import {
+    Alert,
     Button,
     Container,
     FormControl,
@@ -10,18 +11,27 @@ import {
     Paper,
     Select,
     TextField,
-    Typography
+    Typography,
 } from "@mui/material";
 
 function AccountsPage() {
     const [balance, setBalance] = useState(0);
     const [type, setType] = useState("CHECKING");
     const [customerId, setCustomerId] = useState("");
+    const [error, setError] = useState<string | null>(null);
+    const [success, setSuccess] = useState<string | null>(null);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        await createAccount({ balance, type, customerId: Number(customerId) });
-        alert("Account created successfully!");
+        setError(null); // Clear any previous errors
+        setSuccess(null); // Clear any previous success messages
+
+        try {
+            await createAccount({ balance, type, customerId: Number(customerId) });
+            setSuccess("Account created successfully!");
+        } catch (err: any) {
+            setError(err.detail || err.error || "An error occurred");
+        }
     };
 
     return (
@@ -62,6 +72,8 @@ function AccountsPage() {
                             required
                             margin="normal"
                         />
+                        {error && <Alert severity="error">{error}</Alert>}
+                        {success && <Alert severity="success">{success}</Alert>}
                         <Button type="submit" variant="contained" color="primary">
                             Create Account
                         </Button>

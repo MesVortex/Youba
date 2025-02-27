@@ -42,9 +42,6 @@ public class AccountServiceImpl implements AccountService {
     public AccountResponseDTO createAccount(AccountRequestDTO requestDTO) {
         // Validate customer existence
         CustomerDTO customer = customerServiceClient.getCustomerById(requestDTO.getCustomerId());
-        if (customer == null) {
-            throw new CustomerNotFoundException("Customer not found with ID: " + requestDTO.getCustomerId());
-        }
 
         // Check if the customer already has an account of the requested type
         boolean accountExists = accountRepository.existsByCustomerIdAndType(requestDTO.getCustomerId(), requestDTO.getType());
